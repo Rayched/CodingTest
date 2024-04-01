@@ -12,18 +12,12 @@ function Solution(num1, den1, num2, den2){
     let AnsDen = 0;
     let denSync = 0;
 
-    //분모가 같은 경우
+    /*
+        * 최종 선별 실패한 코드
     if (den1 === den2){
         AnsNum = num1 + num2;
         AnsDen = den1;
     } else if(den1 !== den2 && den1 > den2 && den1 % den2 === 0){
-        //분모가 다른 경우
-        /**
-         * 1. den1이 den2의 배수인 경우
-         * 2. den2가 den1의 배수인 경우
-         * 3. 단순히 den1과 den2가 다르기만 한 경우
-         */
-
         if (den1 > den2 && den1 % den2 == 0){
             denSync = den1 / den2;
             AnsNum = num1 + (num2 * denSync);
@@ -36,6 +30,25 @@ function Solution(num1, den1, num2, den2){
             AnsNum = (num1 * den2) + (num2 * den1);
             AnsDen = den1 * den2;
         }
+    }*/
+
+    //분모가 같은 경우와 다른 경우가 존재함
+    if (den1 === den2){
+        AnsNum = num1 + num2;
+        AnsDen = den1;
+    } else if (den1 !== den2 && den1 > den2 && den1 % den2 === 0){
+        denSync = den1 / den2;
+        AnsNum = num1 + (num2 * denSync);
+        AnsDen = den1;
+    } else if (den1 !== den2 && den1 < den2 && den2 % den1 === 0){
+        denSync = den2 / den1;
+        AnsNum = (num1 * denSync) + num2;
+        AnsDen = den2;
+    } else if (den1 !== den2){
+        AnsNum = (num1 * den2) + (num2 * den1);
+        AnsDen = den1 * den2;
+    } else {
+        return;
     }
 
     var answer = [AnsNum, AnsDen];
