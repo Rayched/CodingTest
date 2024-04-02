@@ -14,8 +14,6 @@
  */
 
 function solution(num1, den1, num2, den2){
-    var answer = [];
-
     let sumNum = 0;
     let sumDen = 0;
     
@@ -23,35 +21,36 @@ function solution(num1, den1, num2, den2){
     if (den1 === den2){
         sumNum = num1 + num2;
         sumDen = den1;
-    } else if (den1 !== den2 && den1 > den2 && den1 % den2 === 0){
-        let quo = den1 / den2;
-        sumNum = num1 + (num2 * quo);
-        sumDen = den1;
-    } else if (den1 !== den2 && den1 < den2 && den2 % den1 === 0){
-        let quo = den2 / den1;
-        sumNum = (num1 * quo) + num2;
-        sumDen = den2;
     } else if (den1 !== den2){
-        sumNum = (num1 * den2) + (num2 * den1);
-        sumDen = den1 * den2;
-    } else {
-        return;
-    }
-
-    let gcd = 1;
+        if (den1 > den2 && den1 % den2 === 0){
+            let quo = den1 / den2;
+            sumNum = num1 + (num2 * quo);
+            sumDen = den1;
+        } else if (den1 < den2 && den2 % den1 === 0){
+            let quo = den2 / den1;
+            sumNum = (num1 * quo) + num2;
+            sumDen = den2;
+        } else {
+            sumNum = (num1 * den2) + (num2 * den1);
+            sumDen = den1 * den2;
+        }
+    } 
+    
+    let GCD = 1;
     
     for (let i = 2; i <= Math.min(sumNum, sumDen); i++){
         if (sumNum % i === 0 && sumDen % i === 0){
-            gcd = i;
+            GCD = i;
         }
     }
 
-    let ansNum = sumNum / gcd;
-    let ansDen = sumDen / gcd;
+    let ansNum = sumNum / GCD;
+    let ansDen = sumDen / GCD;
 
-    answer = [ansNum, ansDen];
-
+    var answer = [ansNum, ansDen];
     console.log(answer);
+    
+    return answer;
 }
 
 solution(1, 2, 3, 4);
