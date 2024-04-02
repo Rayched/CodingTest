@@ -13,40 +13,46 @@
  * 4. 최종적으로 나온 값을 배열 answer에 저장해야한다.
  */
 
-function Solution(num1, den1, num2, den2){
-    //분수 두 개의 합 구하기
-    let SumNum = 0;
-    let SumDen = 0;
+function solution(num1, den1, num2, den2){
+    var answer = [];
 
-    if (den1 == den2){
-        SumNum = (num1 * den2) + (num1 * den1);
-        SumDen = den1;
-    } else if (den1 != den2){
-        if (den1 > den2 && den1 % den2 == 0){
-            let denSync = den1 / den2;
-            SumNum = num1 + (num2 * denSync);
-            SumDen = den1;
-        } else if (den1 < den2 && den2 % den1 == 0){
-            let denSync = den2 / den1;
-            SumNum = (num1 * denSync) + num2;
-            SumDen = den2;
-        } else {
-            SumNum = (num1 * den2) + (num2 * den1);
-            SumDen = den1 * den2;
+    let sumNum = 0;
+    let sumDen = 0;
+    
+    //분수의 합 계산
+    if (den1 === den2){
+        sumNum = num1 + num2;
+        sumDen = den1;
+    } else if (den1 !== den2 && den1 > den2 && den1 % den2 === 0){
+        let quo = den1 / den2;
+        sumNum = num1 + (num2 * quo);
+        sumDen = den1;
+    } else if (den1 !== den2 && den1 < den2 && den2 % den1 === 0){
+        let quo = den2 / den1;
+        sumNum = (num1 * quo) + num2;
+        sumDen = den2;
+    } else if (den1 !== den2){
+        sumNum = (num1 * den2) + (num2 * den1);
+        sumDen = den1 * den2;
+    } else {
+        return;
+    }
+
+    let gcd = 1;
+    
+    for (let i = 2; i <= Math.min(sumNum, sumDen); i++){
+        if (sumNum % i === 0 && sumDen % i === 0){
+            gcd = i;
         }
     }
-    //결과 값의 분자, 분모 간의 최대공약수 구하기
-    
 
-    //최종 결과물 저장
-    let ansNum = 0;
-    let ansDen = 0;
+    let ansNum = sumNum / gcd;
+    let ansDen = sumDen / gcd;
 
-    var answer = [ansNum, ansDen];
+    answer = [ansNum, ansDen];
+
     console.log(answer);
-    return answer;
 }
 
-Solution(1, 2, 3, 4);
-Solution(9, 2, 1, 3);
-//Solution(2, 5, 4, 5);
+solution(1, 2, 3, 4);
+solution(9, 2, 1, 3);
