@@ -8,20 +8,30 @@
  */
 
 function solution(array){
-    let Arr = array.sort((a, b) => {
+    var answer = 0;
+
+    const Arr = array.sort((a, b) => {
         return (
-            (a > b) ? 1 
-            : (a < b) ? -1 
+            (a > b) ? 1
+            : (a < b) ? -1
             : 0
         )
     });
 
-    let centerIndex = (Arr.length - 1) / 2;
+    //var answer = Arr[centerIdx];
+    //좋은 해결 방법이지만
+    //내 힘으로 해결한 느낌이 들지 않아서
+    //조금 찝찝하다.
 
-    var answer = Arr[centerIndex];
+    //다른 사람의 풀이법을 참고
+    let getCenter = Arr.find((elm, idx, arr) => {
+        if (idx === (arr.length - 1) / 2){
+            answer = elm;
+        }
+    })
 
     console.log(Arr);
-    console.log(answer);
+    console.log(`중앙 값: ${answer}`);
 }
 
 solution([1, 2, 7, 10, 11]); //중앙 값: 7
